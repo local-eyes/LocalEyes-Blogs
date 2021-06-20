@@ -42,11 +42,11 @@ def register():
 	if request.method == 'POST':
 		details = request.form
 		if details['admin_key'] == os.environ['LocalEyesAdminKey']:
-			fullname = details['fullname']
+			fullname = str(details['first_name']).capitalize() + " " + str(details['last_name']).capitalize()
 			password = passgen(details['password'])
 			role = "Content Writer"
 			verified = False
-			identifier = str(fullname).replace(' ', '.').lower()
+			identifier = str(details['first_name']).lower() + "." + str(details['last_name']).lower()
 			cur = mysql.connection.cursor()
 			cur.execute("INSERT INTO authors(fullname, password, role, identifier, verified) VALUES(%s, %s, %s, %s, %b);", (fullname, password, role, identifier, verified))
 			mysql.connection.commit()
@@ -55,7 +55,7 @@ def register():
 			return redirect('/')
 		else:
 			flash("You are not authorized to create a Writer Account at LocalEyes.", "danger")
-	return render_template('login.html')
+	return render_template('register.html')
 
 @app.route('/admin/login/', methods=['GET', 'POST'])
 def login():
@@ -111,7 +111,6 @@ def write_blog():
 			body = blogpost['body']
 			category = blogpost['category']
 			author = session['author']
-
 			cur = mysql.connection.cursor()
 			cur.execute("INSERT INTO blog(title, body, author, category) VALUES(%s, %s, %s, %s);", (title, body, author, category))
 			mysql.connection.commit()
