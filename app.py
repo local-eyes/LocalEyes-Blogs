@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash as passgen
 from werkzeug.security import check_password_hash as passcheck
 from yaml import load, FullLoader
 import os
-import random 
+
 
 app = Flask(__name__)
 print(os.environ['LocalEyesAdminKey'])
@@ -62,16 +62,25 @@ def login():
 	if request.method == 'POST':
 		cur = mysql.connection.cursor()
 		details = request.form
-		identifier = details['username']
+		identifier = details['fullname']
 		result = cur.execute("SELECT * FROM authors WHERE identifier='{}';".format(identifier))
 		if result > 0:
 			author = cur.fetchone()
 			check_pass = passcheck(author[2], details['password'])
 			if check_pass:
 				session['logged_in'] = True
-				session['author']
+				session['author'] = author[1]
+				session['isVerified'] = bool(author[4])
+				session['role'] = author[3]
+				flash(f"Login Successful. Welcome {session['author']}", "success")
+				print(session['logged_in'], session['author'], session['isVerified'], session['role'])
+				return redirect('/')
+			else:
+				flash("Password is incorrect, please try again.", "danger")
+				return render_template("login.html")
 		else:
 			flash("User does not exist", "danger")
+			return render_template("login.html")
 	return render_template("login.html")
 
 @app.route('/author/<identifier>')
