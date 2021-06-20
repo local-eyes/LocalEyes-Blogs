@@ -124,7 +124,7 @@ def write_blog():
 
 @app.route('/my-blogs/')
 def my_blogs():
-	author = session['first_name'] + ' ' + session['last_name']
+	author = session['author']
 	cur = mysql.connection.cursor()
 	resultBlog = cur.execute("SELECT * FROM blog WHERE author=%s", [author])
 	if resultBlog > 0:
@@ -180,6 +180,12 @@ def delete_blog(id):
 	cur.execute("DELETE FROM blog WHERE blog_id={}".format(id))
 	mysql.connection.commit()
 	flash('Blog Deleted Successfully !!', 'success')
+	return redirect('/')
+
+@app.route('/logout/')
+def logout():
+	session.clear()
+	flash("Logged Out Successfully", "warning")
 	return redirect('/')
 
 if __name__ == '__main__':
