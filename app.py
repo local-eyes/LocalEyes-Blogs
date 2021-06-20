@@ -105,18 +105,22 @@ def blogs(id):
 @app.route('/write-blog/', methods=['GET', 'POST'])
 def write_blog():
 	if request.method == 'POST':
-		blogpost = request.form
-		title = blogpost['title']
-		body = blogpost['body']
-		category = blogpost['category']
-		author = session['first_name'] + ' ' + session['last_name']
+		if session['isVerified']:
+			blogpost = request.form
+			title = blogpost['title']
+			body = blogpost['body']
+			category = blogpost['category']
+			author = session['author']
 
-		cur = mysql.connection.cursor()
-		cur.execute("INSERT INTO blog(title, body, author, category) VALUES(%s, %s, %s, %s);", (title, body, author, category))
-		mysql.connection.commit()
-		cur.close()
-		flash('Blog Posted Successfully', 'success')
-		return redirect('/')
+			cur = mysql.connection.cursor()
+			cur.execute("INSERT INTO blog(title, body, author, category) VALUES(%s, %s, %s, %s);", (title, body, author, category))
+			mysql.connection.commit()
+			cur.close()
+			flash('Blog Posted Successfully', 'success')
+			return redirect('/')
+		else:
+			flash("You are not verified to write blogs right now", "danger")
+			return redirect('/')
 	return render_template('write-blog.html')
 
 @app.route('/my-blogs/')
