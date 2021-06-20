@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block sub_content %}
+<div class="page-header">
+    <div class="text-center">
+        <h1>Flask BloGPosT</h1>
+    </div>
+</div>
+{% for blog in blogs %}
+<div class="well">
+    <blockquote>
+        <h3><a href="/blog/{{ blog[0] }}">{{ blog[1] }}</a></h3>
+        <p>Category : {{blog[4]}}</p>
+        <footer>Written By : {{ blog[2] }}</footer>
+    </blockquote>
+</div>
+<br> {% endfor %} {% endblock %}

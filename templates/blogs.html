@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block sub_content %}
+
+<div class="page-header">
+    <h1> {{ blogs[1] }}</h1>
+</div>
+<br>
+<div class="container">
+    {{blogs[3] | safe}}
+</div>
+<br>
+<div class="container text-left">
+    <p> Written By : {{ blogs[2] }}</p>
+</div>
+<div class="container text-left">
+    <p>Category : {{blogs[4]}}</p>
+</div>
+
+{% endblock %}

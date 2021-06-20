@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block sub_content %}
+
+	<div class="panel-group">
+		{% if my_blogs %}
+		    <div class="panel panel-primary">
+		    	<div class="panel-heading"><h1>Blogs By {{my_blogs[0][2] }}</h1></div>
+		    	<div class="panel-body">
+		      		<table class="table table-hover">
+						{% for blog in my_blogs %}
+							<tr>
+								<td><h2><a href="/blog/{{ blog[0] }}/"> {{ blog[1]}} </a></h2></td>
+								<td><a href="/edit-blog/{{ blog[0] }}/" class="btn btn-success"> Edit Blog </a></td>
+								<td><a href="/delete-blog/{{ blog[0] }}/" class="btn btn-danger"> Delete Blog </a></td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		{% else %}
+		    <div class="panel panel-danger">
+		    	<div class="panel-heading"><h1>You Have Not Written Any Blogs</h1></div>
+		    	<div class="panel-body">
+					<h1> <a href="/write-blog/" class="btn btn-primary"> Write One Now !!! </a></h1>
+				</div>
+		{% endif %}
+	</div>		
+
+{% endblock %}

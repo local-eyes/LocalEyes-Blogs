@@ -1,0 +1,6 @@
+{% extends 'bootstrap/base.html' %} {% block head %} {{ ckeditor.load() }} {{ super()}} {% endblock %} {% block title %} Flog WebApp {% endblock %} {% block navbar %} {% include '_navbar.html' %} {% endblock %} {% block content %} {% with messages = get_flashed_messages(with_categories=true)
+%}
+<ul class="list-group">
+    {% for category, message in messages %}
+    <li class="alert alert-{{category}}"> {{ message }} </li>
+    {% endfor %} {% endwith %} {% block sub_content %} {% endblock %} {% endblock %}

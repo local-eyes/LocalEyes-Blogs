@@ -1,0 +1,32 @@
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid"> 
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Flask BlogPost</a>
+    </div>
+    {% if session['login'] == True %}
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/write-blog/">Write a Blog</a></li>
+        <li><a href="/my-blogs/">View My Blogs</a></li>
+        <li><a href="/about/">About us</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/"><span class="glyphicon glyphicon-user"></span> {{ session['first_name'] }}</a></li>
+        <li><a href="/logout/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    {% else %}
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/register/">Write a Blog</a></li>
+        <li><a href="/register/">View My Blogs</a></li>
+        <li><a href="/about/">About us</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/register/"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+      </ul>
+      {% endif %}
+  </div>
+</nav> 
