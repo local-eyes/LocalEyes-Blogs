@@ -1,41 +1,28 @@
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
-from flask_bootstrap import Bootstrap
-from flask_mysqldb import MySQL
-from flask_ckeditor import CKEditor
 from werkzeug.security import generate_password_hash as passgen
 from werkzeug.security import check_password_hash as passcheck
-from yaml import load, FullLoader
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 import os
+from datetime import datetime
+
+cred = credentials.Certificate("keys.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+blogsRef = db.collection(u'blogs')
+authorsRef = db.collection(u'authors')
 
 
 app = Flask(__name__)
 print(os.environ['LocalEyesAdminKey'])
-
-# Ad-On Enablers 
-Bootstrap(app)
-CKEditor(app)
-mysql = MySQL(app)
-
-# MySQL Database Configuration
-db = load(open('db.yaml'), Loader=FullLoader)
-app.config['MYSQL_HOST'] = db['mysql_host']
-app.config['MYSQL_USER'] = db['mysql_user']
-app.config['MYSQL_PASSWORD'] = db['mysql_password']
-app.config['MYSQL_DB'] = db['mysql_db']
-app.config['CURSORCLASS'] = 'DictCursor'
 app.config['SECRET_KEY'] = os.urandom(24)
-
 
 @app.route('/')
 def index():
-	cur = mysql.connection.cursor()
-	allblogs = cur.execute("SELECT * FROM blog;")
-	if allblogs > 0:
-		blogs = cur.fetchall()
-		cur.close()
-		return render_template('index.html', blogs=blogs)
-	cur.close()
-	return render_template('index.html', blogs=None)
+	query = blogsRef.order_by(u"postedOn", direction=firestore.Query.DESCENDING)
+	blogs = query.stream()
+	return render_template("index.html", blogs=blogs)
 
 @app.route('/admin/register/', methods=['GET', 'POST'])
 def register():
@@ -45,12 +32,14 @@ def register():
 			fullname = str(details['first_name']).capitalize() + " " + str(details['last_name']).capitalize()
 			password = passgen(details['password'])
 			role = "Content Writer"
-			verified = False
 			identifier = str(details['first_name']).lower() + "." + str(details['last_name']).lower()
-			cur = mysql.connection.cursor()
-			cur.execute("INSERT INTO authors(fullname, password, role, identifier, verified) VALUES(%s, %s, %s, %s, %b);", (fullname, password, role, identifier, verified))
-			mysql.connection.commit()
-			cur.close()
+			authorsRef.document(identifier).set({
+				u"fullname": fullname,
+				u"identifier": identifier,
+				u"password": password,
+				u"role": role,
+				u"isVerified": False
+			})
 			flash(f"ACCOUNT CREATION SUCCESSFULL. Welcome to LocalEyes {fullname}", "success")
 			return redirect('/')
 		else:
@@ -60,18 +49,17 @@ def register():
 @app.route('/admin/login/', methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
-		cur = mysql.connection.cursor()
 		details = request.form
 		identifier = details['fullname']
-		result = cur.execute("SELECT * FROM authors WHERE identifier='{}';".format(identifier))
-		if result > 0:
-			author = cur.fetchone()
-			check_pass = passcheck(author[2], details['password'])
+		result = authorsRef.document(identifier).get()
+		if result.exists:
+			author = result.to_dict()
+			check_pass = passcheck(author['password'], details['password'])
 			if check_pass:
 				session['logged_in'] = True
-				session['author'] = author[1]
-				session['isVerified'] = bool(author[4])
-				session['role'] = author[3]
+				session['author'] = author['fullname']
+				session['isVerified'] = bool(author['isVerified'])
+				session['role'] = author['role']
 				flash(f"Login Successful. Welcome {session['author']}", "success")
 				print(session['logged_in'], session['author'], session['isVerified'], session['role'])
 				return redirect('/')
@@ -85,21 +73,18 @@ def login():
 
 @app.route('/author/<identifier>')
 def author(identifier):
-	cur = mysql.connection.cursor()
-	res = cur.execute("SELECT * FROM authors WHERE identifier='{}';".format(identifier))
-	if res > 0:
-		author = cur.fetchone()
+	authorRef = authorsRef.document(identifier).get()
+	if authorRef.exists:
+		author = authorRef.to_dict()
 		return jsonify({"result": author})
 	else:
 		return "No Such Author"
 
-@app.route('/blog/<int:id>/')
+@app.route('/blog/<id>/')
 def blogs(id):
-	cur = mysql.connection.cursor()
-	resultBlog = cur.execute("SELECT * FROM blog WHERE blog_id={}".format(id))
-	if resultBlog > 0:
-		blog = cur.fetchone()
-		return render_template('blogs.html', blogs=blog)
+	blog = blogsRef.document(id).get()
+	if blog.exists:
+		return render_template('blogs.html', blog=blog.to_dict())
 	return "Blog Not Found"
 
 @app.route('/write-blog/', methods=['GET', 'POST'])
@@ -107,14 +92,15 @@ def write_blog():
 	if request.method == 'POST':
 		if session['isVerified']:
 			blogpost = request.form
-			title = blogpost['title']
-			body = blogpost['body']
-			category = blogpost['category']
-			author = session['author']
-			cur = mysql.connection.cursor()
-			cur.execute("INSERT INTO blog(title, body, author, category) VALUES(%s, %s, %s, %s);", (title, body, author, category))
-			mysql.connection.commit()
-			cur.close()
+			blogData = {
+			u'title' : blogpost['title'],
+			u'body' : blogpost['body'],
+			u'category' : blogpost['category'],
+			u'author' : session['author'],
+			u'postedOn': datetime.now()
+			}
+			tagline = blogpost['title'].replace(" ", "-").replace(",", "").replace("!", "").replace(".", "").lower()
+			blogsRef.document(tagline).set(blogData)
 			flash('Blog Posted Successfully', 'success')
 			return redirect('/')
 		else:
@@ -125,33 +111,25 @@ def write_blog():
 @app.route('/my-blogs/')
 def my_blogs():
 	author = session['author']
-	cur = mysql.connection.cursor()
-	resultBlog = cur.execute("SELECT * FROM blog WHERE author=%s", [author])
-	if resultBlog > 0:
-		my_blogs = cur.fetchall()
-		return render_template('my-blogs.html', my_blogs=my_blogs)
-	else:
-		return render_template('my-blogs.html', my_blogs=None)
+	resultBlog = blogsRef.where(u"author", u"==", author).stream()
+	return render_template('my-blogs.html', my_blogs=resultBlog)
 
 @app.route('/categories')
 def categories():
-	cur = mysql.connection.cursor()
+	_categories = ['LAUNCH', 'DESIGN', 'FEATURES']
+	blogsList = {}
+		
 	if request.args:
 		category = str(request.args.get('q')).upper()
-		res = cur.execute("SELECT * FROM blog WHERE category='{}';".format(category))
-		if res > 0:
-			blogs = cur.fetchall()
-			return jsonify({"result" : blogs})
-		else:
-			return "No Blogs of such category"
-	else :
-		res = cur.execute("SELECT * FROM blog ORDER BY category")
-		if res > 0:
-			blogs = cur.fetchall()
-			return jsonify({"result" : blogs})
-		else:
-			return "No Blogs found"
-
+		blogs = blogsRef.where(u"category", u"==", category).get()
+		blogsList[category] = []
+	else:
+		for _category in _categories:
+			blogsList[_category] = []
+		blogs = blogsRef.order_by(u"category", direction=firestore.Query.DESCENDING).get()
+	for blog in blogs:
+		blogsList[blog.to_dict()['category']].append(blog.to_dict())
+	return jsonify(blogsList)
 
 @app.route('/edit-blog/<int:id>/', methods=['GET', 'POST'])
 def edit_blog(id):
