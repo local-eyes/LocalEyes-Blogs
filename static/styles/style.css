@@ -1,0 +1,521 @@
+:root {
+    --shadow-default: 12px 12px #62c9d5;
+    --shadow-hover: 3px 3px #62c9d5;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+input[type='email']:focus {
+    border: 2px solid #62c9d5;
+    box-shadow: 0 0 20px rgba(0, 174, 255, 0.26);
+}
+
+
+/* mobile-view styling  */
+
+@media (max-width:991px) {
+    .bg {
+        /* padding-top:75px; */
+        padding: 13rem 0;
+        background-color: white;
+    }
+    .head {
+        /* font-size: 2.5rem; */
+        color: black;
+        /* margin: 1.5rem 0; */
+        font-weight: bold!important;
+        font-size: 3.3rem;
+    }
+    .tagline {
+        color: rgb(92, 92, 92);
+        margin: 1.5rem 0;
+        font-size: 20px!important;
+    }
+    .highlight {
+        color: #62c9d5!important;
+    }
+    .btn-signup {
+        background-color: #62c9d5;
+        border-radius: 0.75rem;
+        font-weight: bold;
+        color: rgb(3, 43, 53);
+        font-size: 1.35rem;
+        margin: 0 10rem;
+    }
+    #head-page-2 {
+        font-size: 3rem;
+        color: #263238;
+    }
+    #page-2-content {
+        font-size: 1.5rem;
+        color: #263238;
+    }
+    #sec-2 {
+        background-color: white;
+        padding-top: 1rem;
+        padding-bottom: 5rem;
+    }
+    #sec-2-bg {
+        background: rgb(255, 255, 255);
+        padding: 4rem 0;
+        box-shadow: 3px 6px 24px rgb(0 0 0 / 10%);
+    }
+    #girlImage-Div {
+        padding-top: 7rem;
+        padding-left: 4rem;
+    }
+    /* features page styling mobile*/
+    #features {
+        background-image: url(/assets/bg/Empty\ street-pana\ \(1\).png);
+        background-repeat: no-repeat;
+        background-size: 100vw 100vh;
+        background-color: white;
+        background-attachment: fixed;
+        padding-top: 15%;
+    }
+    .pg-3-head {
+        color: #455a64;
+        font-size: 3rem;
+    }
+    .subHead-page-3 {
+        font-weight: 400;
+        color: #455a64;
+        font-size: 3rem;
+    }
+    .page-3-content {
+        font-size: 1.5rem;
+        color: #455a64;
+    }
+    .btn-explore {
+        box-shadow: var(--shadow-default);
+        background-color: rgb(3, 43, 53);
+        border-radius: 0.75rem;
+        font-weight: 400;
+        color: white;
+    }
+    .btn-explore:hover {
+        color: white;
+        transform: scale(1.1);
+        box-shadow: var(--shadow-hover)
+    }
+    /* here starts sec-4 styling */
+    #whyUs {
+        background: rgb(255, 255, 255);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(98, 201, 213, 0.4906337535014006) 100%);
+    }
+    .whyUsHead {
+        color: #455a64;
+        font-size: 3rem;
+    }
+    .list-group {
+        flex-direction: row;
+    }
+    .list-group-item.list-group-item-action {
+        background-color: #032b35;
+        color: white;
+        font-size: 1.5rem;
+        max-width: 100px;
+        border-radius: 2.4rem;
+        margin: auto;
+    }
+    .list-group-item.active {
+        background-color: #62c9d5!important;
+        color: black;
+        border-color: #1ceeee!important;
+    }
+    .tab-content>.active {
+        height: 70%;
+    }
+    /*here starts sec-6 styling  */
+    /* #sec-6-head {
+        color: rgb(3, 43, 53);
+        font-size: 2.7rem;
+        font-weight: 700;
+        margin: 1rem 12rem;
+    }
+    .team-img-col {
+        background-color: white;
+        border-radius: 1.5rem;
+        height: 17rem;
+        width: 14rem;
+        padding: 1rem 0rem;
+        margin: 1.5rem 10rem;
+    }
+    .btn-team {
+        background-color: rgb(3, 43, 53);
+        transform: translate(1rem, 14rem);
+        width: 12rem;
+        font-weight: 500;
+    } */
+    /* FAQ styling mobile */
+    #FAQ {
+        background: rgb(255, 255, 255);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(98, 201, 213, 0.4906337535014006) 100%);
+    }
+    header {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: rgb(3, 43, 53);
+        margin-top: 15rem;
+    }
+    /* accordion styling from here */
+    .accordion-item:first-of-type {
+        border-radius: 1rem;
+        font-size: 1.2rem;
+    }
+    .accordion-item:last-of-type {
+        border-radius: 1rem;
+    }
+    .accordion-item:first-of-type .accordion-button {
+        border-radius: 1rem;
+    }
+    .accordion-item:last-of-type .accordion-button.collapsed {
+        border-radius: 1rem;
+    }
+    .accordion-item {
+        background-color: rgb(3, 43, 53);
+        color: white;
+        border-radius: 1rem;
+    }
+    .accordion-item .accordion-button {
+        color: black;
+        font-weight: 500;
+        background-color: #62c9d5;
+        border-radius: 1rem;
+        font-size: 1.2rem;
+    }
+    .accordion-body {
+        padding: 1rem 1.25rem;
+        font-size: 1.2rem;
+    }
+    /* text input styling from here */
+    label {
+        display: inline-block;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: rgb(3, 43, 53);
+    }
+    textarea.form-control {
+        min-height: calc(8.5em + 1.75rem + 2px);
+        background-color: #62c9d5;
+        border-radius: .5rem;
+        opacity: 27%;
+        color: #263238;
+        font-size: 1.4rem;
+    }
+    .btn-ques {
+        background-color: #62c9d5;
+        border-radius: 0.75rem;
+        font-weight: bold;
+        color: rgb(3, 43, 53);
+    }
+    /*here starts contact us styling */
+    #contactUs {
+        background-color: rgb(3, 43, 53);
+    }
+    #contactUs-head {
+        font-size: 2.5rem;
+        font-weight: 700;
+        padding: 2rem 0;
+    }
+    .contactUs-col {
+        padding: 1rem 5rem;
+        height: 12rem;
+    }
+    .conDetails {
+        color: white;
+        font-size: 1.7rem;
+        font-weight: 500;
+    }
+    /* footer styling from here */
+    footer {
+        border-top: 1px solid #62c9d5;
+        background-color: rgb(3, 43, 53);
+    }
+    .btn-footer {
+        background-color: #62c9d5;
+        border-radius: 0.75rem;
+        font-weight: bold;
+        color: rgb(3, 43, 53);
+        font-size: 1.3rem;
+        margin: 2rem 0;
+        max-height: 3rem;
+    }
+}
+
+@media (min-width:992px) {
+    .head {
+        font-size: 4.5rem;
+        color: black;
+        font-weight: bold!important;
+    }
+    .bg {
+        padding: 15rem 0;
+        background-color: white;
+    }
+    .tagline {
+        color: rgb(92, 92, 92);
+        margin: 1.5rem 0;
+    }
+    .highlight {
+        color: #62c9d5!important;
+    }
+    .btn-signup {
+        background-color: #62c9d5;
+        border-radius: 0.75rem;
+        font-weight: bold;
+        color: rgb(3, 43, 53);
+        font-size: 1.35rem;
+        margin: 0 0rem;
+    }
+    .meetLocalEyes {
+        margin-left: 20px;
+    }
+    /* here starts sec-2 styling */
+    #head-page-2 {
+        font-size: 4rem;
+        color: #263238;
+    }
+    #page-2-content {
+        font-size: 1.8rem;
+        color: #263238;
+    }
+    #sec-2 {
+        background-color: white;
+        padding-top: 4rem;
+        padding-bottom: 5rem;
+    }
+    #sec-2-bg {
+        background: rgb(255, 255, 255);
+        padding: 0;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 50%, transparent 50%, transparent 100%);
+    }
+    .container.about {
+        background-color: white;
+        border-radius: 6rem;
+        padding: 6rem 0;
+        box-shadow: 3px 6px 24px rgb(0 0 0 / 10%);
+    }
+    #girlImage-Div {
+        padding-left: 5rem;
+    }
+    /* here starts sec-3 styling desktop*/
+    #features {
+        background-image: url(/assets/bg/Empty\ street-pana\ -desktop.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: white;
+        background-attachment: fixed;
+        padding-top: 8%;
+    }
+    .pg-3-head {
+        color: #455a64;
+        font-size: 4rem;
+    }
+    .subHead-page-3 {
+        font-size: 5rem;
+        font-weight: 500;
+        color: #455a64;
+    }
+    .page-3-content {
+        font-size: 2rem;
+        color: #455a64;
+    }
+    .btn-explore {
+        box-shadow: var(--shadow-default);
+        background-color: rgb(3, 43, 53);
+        border-radius: 0.75rem;
+        font-weight: 500;
+        font-size: 2.5rem;
+        color: white;
+        transition: .2s;
+    }
+    .btn-explore:hover {
+        color: white;
+        box-shadow: var(--shadow-hover)
+    }
+    /* here starts section 4 styling desktop*/
+    #whyUs {
+        background: rgb(255, 255, 255);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(98, 201, 213, 0.4906337535014006) 100%);
+    }
+    .whyUsHead {
+        color: #455a64;
+        font-size: 3rem;
+    }
+    .list-group.list-group-item {
+        color: #455a64;
+    }
+    .list-group {
+        flex-direction: row;
+        color: #62c9d5;
+    }
+    .list-group-item.list-group-item-action {
+        background-color: #032b35;
+        color: white;
+        font-size: 2rem;
+        max-width: 230px;
+        margin: auto;
+        border-radius: 2.4rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .list-group-item.active {
+        background-color: #62c9d5!important;
+        color: black;
+        border-color: #1ceeee!important;
+    }
+    .list-group-item.list-group-item-action:hover {
+        transform: scale(1.1);
+        box-shadow: var(--shadow-default)
+    }
+    .list-group-item.active:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    .tab-content>.active {
+        height: 70vh;
+    }
+    .tab-pane:nth-child(3) {
+        margin-top: 70px!important;
+        height: 60vh;
+    }
+    /* FAQ styling desktop */
+    #FAQ {
+        background: rgb(255, 255, 255);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(98, 201, 213, 0.4906337535014006) 100%);
+    }
+    header {
+        text-align: center;
+        font-size: 4.5rem;
+        font-weight: 600;
+        color: rgb(3, 43, 53);
+        /* margin-top: 15rem;
+        margin-bottom: 2rem; */
+    }
+    /* accordion styling from here */
+    .accordion-item:first-of-type {
+        border-radius: 1rem;
+    }
+    .accordion-item:last-of-type {
+        border-radius: 1rem;
+    }
+    .accordion-item:first-of-type .accordion-button {
+        border-radius: 1rem;
+        padding: 2rem 1rem;
+        font-size: 1.8rem;
+    }
+    .accordion-item:last-of-type .accordion-button.collapsed {
+        border-radius: 1rem;
+    }
+    .accordion-item {
+        background-color: rgb(3, 43, 53);
+        color: white;
+        border-radius: 1rem;
+        font-size: 1.5rem;
+        margin: 10px;
+    }
+    .accordion-item .accordion-button {
+        color: black;
+        font-weight: 500;
+        background-color: #62c9d5;
+        border-radius: 1rem;
+        font-size: 1.8rem;
+        padding: 2rem 1rem;
+    }
+    .accordion-body {
+        padding: 1rem 1.25rem;
+        font-size: 1.7rem;
+    }
+    /* text input styling from here */
+    label {
+        display: inline-block;
+        font-size: 2.2rem;
+        font-weight: 600;
+        color: rgb(3, 43, 53);
+    }
+    textarea.form-control {
+        min-height: calc(14em + 1.75rem + 2px);
+        background-color: #62c9d5;
+        border-radius: .5rem;
+        opacity: 27%;
+        font-size: 1.5rem;
+        color: rgb(3, 43, 53);
+    }
+    .btn-ques {
+        background-color: #62c9d5;
+        border-radius: 0.75rem;
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: rgb(3, 43, 53);
+    }
+    /* here starts section-6 styling */
+    /* .sec-6-row {
+        height: 61rem;
+    }
+    #sec-6-head {
+        color: rgb(3, 43, 53);
+        font-size: 4.5rem;
+        font-weight: 700;
+        margin: 0rem 9rem;
+        padding-top: 3rem;
+    }
+    .team-img-col {
+        background-color: white;
+        border-radius: 1.5rem;
+        height: 24rem;
+        width: 19rem;
+        padding: 1rem 0rem;
+        margin: 4rem 1rem;
+        margin-left: 10rem
+    }
+    .btn-team {
+        background-color: rgb(3, 43, 53);
+        transform: translate(1rem, 21rem);
+        width: 17rem;
+        font-weight: 600;
+        font-size: 1.6rem;
+    } */
+    /*here starts contact us styling */
+    #contactUs {
+        background-color: rgb(3, 43, 53);
+    }
+    #contactUs-head {
+        color: white;
+        font-size: 4rem;
+        font-weight: 700;
+        margin: 0rem 12rem;
+        padding-top: 2rem;
+    }
+    .contactUs-col {
+        margin-left: 6rem;
+    }
+    .contactUs-img-col {
+        margin: 4rem 0rem;
+    }
+    .conDetails {
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 500;
+    }
+    /* footer styling from here */
+    footer {
+        border-top: 2px solid #62c9d5;
+        background-color: rgb(3, 43, 53);
+    }
+    .btn-footer {
+        background-color: #62c9d5;
+        border-radius: 0.75rem;
+        font-weight: bold;
+        color: rgb(3, 43, 53);
+        font-size: 2rem;
+        margin: 2.8rem 4.5rem;
+    }
+}
