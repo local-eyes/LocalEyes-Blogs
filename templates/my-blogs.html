@@ -1,18 +1,17 @@
 {% extends 'base.html' %}
 
 {% block sub_content %}
-
 	<div class="panel-group">
 		{% if my_blogs %}
 		    <div class="panel panel-primary">
-		    	<div class="panel-heading"><h1>Blogs By {{my_blogs[0][2] }}</h1></div>
+		    	<div class="panel-heading"><h1>Blogs By {{ session['author'] }}</h1></div>
 		    	<div class="panel-body">
 		      		<table class="table table-hover">
 						{% for blog in my_blogs %}
 							<tr>
-								<td><h2><a href="/blog/{{ blog[0] }}/"> {{ blog[1]}} </a></h2></td>
-								<td><a href="/edit-blog/{{ blog[0] }}/" class="btn btn-success"> Edit Blog </a></td>
-								<td><a href="/delete-blog/{{ blog[0] }}/" class="btn btn-danger"> Delete Blog </a></td>
+								<td><h2><a href="/blog/{{ blog.id }}/"> {{ blog.to_dict().title}} </a></h2></td>
+								<td><a href="/edit-blog/{{ blog.id }}/" class="btn btn-success"> Edit Blog </a></td>
+								<td><a href="/delete-blog/{{ blog.id }}/" class="btn btn-danger"> Delete Blog </a></td>
 							</tr>
 						{% endfor %}
 					</table>
