@@ -5,15 +5,21 @@
     </div>
 </div>
 {% for blog in blogs %}
-<div class="well">
-    <blockquote>
+<div class="container w-75">
+    <div class="row align-items-center my-5">
+        <div class="col-md-6">
+            <h2><a href="/blog/{{ blog.id }}">{{ blog.to_dict().title }}</a></h2>
+            <p>Category : {{ blog.to_dict().category }}</p>
+            <footer>Written By- {{ blog.to_dict().author }}</footer>
+            <footer>Read Time- {{ blog.to_dict().readTime }} mins</footer>
+        </div>
         {% if blog.to_dict().headerImage %}
-        <img src="{{ blog.to_dict().headerImage }}" alt="headerImage" style="float:right;" height="300px">
+        <div class="col-md-6 mx-auto">
+            <img src="{{ blog.to_dict().headerImage }}" alt="headerImage"  class="img-fluid">
+        </div>
         {% endif %}
-        <h1><a href="/blog/{{ blog.id }}">{{ blog.to_dict().title }}</a></h1>
-        <p>Category : {{ blog.to_dict().category }}</p>
-        <footer>Written By : {{ blog.to_dict().author }}</footer>
-        <footer>Read Time: {{ blog.to_dict().readTime }} Mins</footer>
-    </blockquote>
+    </div>
 </div>
+              
+
 <br> {% endfor %} {% endblock %}

@@ -1,7 +1,64 @@
-<nav class="navbar navbar-dark bg-light w-75 bg-dark m-auto">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-            <img src="{{url_for('static', filename='assets/LOgo-13.png')}}" alt="" width="30" height="24" class="d-inline-block align-text-top"> LocalEyes Blogs
-        </a>
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg px-5 fixed-top">
+    <a href="/" class="d-flex align-items-center navbar-brand">
+      LocalEyes Blogs
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#my-nav" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="my-nav">
+        <ul class="navbar-nav ms-auto effect-4 ">
+            <li class="nav-item d-flex align-items-center">
+                <a href="#home" class="nav-link active">Home</a>
+            </li>
+
+            <li class="nav-item d-flex align-items-center">
+                <button type="submit" class="btn btn-nav-sign "
+                 data-bs-toggle="modal" data-bs-target="#navSignUpModal">Sign Up</button>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+                <a href="https://local-eyes.tech/" class="nav-link">Local<span class="highlight">Eyes</span></a>
+            </li>
+        </ul>
     </div>
 </nav>
+    <!-- Modal -->
+    <div class="modal fade" id="navSignUpModal" style="backdrop-filter: blur(0.7rem);" tabindex="-1" aria-labelledby="navSignUpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="navSignUpModalLabel">We're Thrilled to have you On Board</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <section id="sec-5">
+                        <div class="container">
+                            <div class="row align-items-center justify-content-md-between justify-content-center">
+                                <div class="col-8 col-md-6  p-3 mt-4 pb-md-5 justify-content-center justify-content-md-end justify-content-lg-end  earlyAccess-img-col" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="600">
+                                    <img src="./assets/Account-amico.svg" alt="earlyAccess-ing" class="img-fluid earlyAccess-img">
+                                </div>
+                                <div class="col-10 col-md-6  earlyAccess-text-col" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="600">
+                                    <div>
+                                        <div class="form-inline mt-4 p-md-3">
+                                            <label id="label-id" for="email"><span class="highlight">Sign Up</span> for Early Access, and experience LocalEyes before the rest </label>
+                                            <form action="https://tech.us6.list-manage.com/subscribe/post?u=ed668a35254511a49a727d1f5&amp;id=88848a78d9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_self" novalidate>
+                                                <div id="mc_embed_signup_scroll input-group">
+                                                    <input type="email" placeholder="example@email.com" name="EMAIL" class="required email form-control me-3 mt-2" style="border-radius: 0.75rem; font-size: 15px;" id="mce-EMAIL" required>
+                                                </div>
+                                                <div id="mce-responses" class="clear">
+                                                    <div class="response" id="mce-error-response" style="display:none"></div>
+                                                    <div class="response" id="mce-success-response" style="display:none"></div>
+                                                </div>
+                                                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_ed668a35254511a49a727d1f5_88848a78d9" tabindex="-1" value=""></div>
+                                                <div class="clear"><input type="submit" value="Sign Up" name="subscribe" id="mc-embedded-subscribe" class="button btn btn-nav-sign mt-2"></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>

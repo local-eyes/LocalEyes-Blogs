@@ -15,13 +15,14 @@ authorsRef = db.collection(u'authors')
 
 
 app = Flask(__name__)
-print(os.environ['LocalEyesAdminKey'])
+
 app.config['SECRET_KEY'] = os.urandom(24)
 
 @app.route('/')
 def index():
 	query = blogsRef.order_by(u"postedOn", direction=firestore.Query.DESCENDING)
 	blogs = query.stream()
+	print(type(blogs))
 	return render_template("index.html", blogs=blogs)
 
 @app.route('/admin/register/', methods=['GET', 'POST'])
