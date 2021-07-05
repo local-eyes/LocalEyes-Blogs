@@ -6,7 +6,19 @@
             <h1> {{ blog.title }}</h1>
             <p class="text-left">Category : {{ blog.category }}</p>
         </div>
-        div.row
+        <div class="row align-items-center justify-content-around">
+            <div class="col-md-4">
+                <div class="container text-left">
+                    <p> Written By : {{ blog.author }}</p>
+                </div>
+                <div class="container text-left">
+                    <p>Reading Time : {{ blog.readTime }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <p>social media icons</p>
+            </div>
+        </div>
     </section>
         {% if blog.headerImage %}
         <img src="{{ blog.headerImage }}" alt="headerImage" height="200px" width="900px">
@@ -18,15 +30,7 @@
         <h2>{{ blog.body }}</h2>
     </div>
     <br><br>
-    <div class="container text-left">
-        <p> Written By : {{ blog.author }}</p>
-    </div>
-    <div class="container text-left">
-        
-    </div>
-    <div class="container text-left">
-        <p>Reading Time : {{ blog.readTime }}</p>
-    </div>
+
     <div class="container text-left">
         <p>Posted On : {{ blog.postedOn }}</p>
     </div>
