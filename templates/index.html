@@ -4,22 +4,35 @@
         <h1>Flask BloGPosT</h1>
     </div>
 </div>
-{% for blog in blogs %}
-<div class="container w-75">
-    <div class="row align-items-center my-5">
-        <div class="col-md-6">
-            <h2><a href="/blog/{{ blog.id }}">{{ blog.to_dict().title }}</a></h2>
-            <p>Category : {{ blog.to_dict().category }}</p>
-            <footer>Written By- {{ blog.to_dict().author }}</footer>
-            <footer>Read Time- {{ blog.to_dict().readTime }} mins</footer>
+<h1>=========LATEST BLOG START=========</h1>
+<blockquote>
+    {% if blogs[0].data.headerImage %}
+    <img src="{{ blogs[0].data.headerImage }}" alt="headerImage" style="float:right;" height="300px"> {% endif %}
+    <h1><a href="/blog/{{ blogs[0].id }}">{{ blogs[0].data.title }}</a></h1>
+    <p>Category : {{ blogs[0].data.category }}</p>
+    <footer>Written By : {{ blogs[0].data.author }}</footer>
+    <footer>Read Time: {{ blogs[0].data.readTime }} Mins</footer>
+</blockquote>
+<h1>=========LATEST BLOG ENDS=========</h1>
+<div class="row w-75 m-auto bg-secondary">
+    {% for blog in blogs[1:] %}
+    <div class="container col-6">
+        <div class="row align-items-center my-5">
+            <div class="col-md-6">
+                <h2><a href="/blog/{{ blog.id }}">{{ blog.data.title }}</a></h2>
+                <p>Category : {{ blog.data.category }}</p>
+                <footer>Written By- {{ blog.data.author }}</footer>
+                <footer>Read Time- {{ blog.data.readTime }} mins</footer>
+            </div>
+            {% if blog.data.headerImage %}
+            <div class="col-md-6 mx-auto">
+                <img src="{{ blog.data.headerImage }}" alt="headerImage" class="img-fluid">
+            </div>
+            {% endif %}
         </div>
-        {% if blog.to_dict().headerImage %}
-        <div class="col-md-6 mx-auto">
-            <img src="{{ blog.to_dict().headerImage }}" alt="headerImage"  class="img-fluid">
-        </div>
-        {% endif %}
     </div>
-</div>
-              
 
-<br> {% endfor %} {% endblock %}
+
+    <br> {% endfor %}
+</div>
+{% endblock %}

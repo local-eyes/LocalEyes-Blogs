@@ -21,8 +21,13 @@ app.config['SECRET_KEY'] = os.urandom(24)
 @app.route('/')
 def index():
 	query = blogsRef.order_by(u"postedOn", direction=firestore.Query.DESCENDING)
-	blogs = query.stream()
-	print(type(blogs))
+	blogs_stream = query.stream()
+	blogs = []
+	for blog in blogs_stream:
+		blogs.append({
+			"data": blog.to_dict(),
+			"id": blog.id
+		})
 	return render_template("index.html", blogs=blogs)
 
 @app.route('/admin/register/', methods=['GET', 'POST'])
