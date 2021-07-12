@@ -62,14 +62,17 @@
         </div>
     </section>
     {% if blog.headerImage %}
-    <section class="w-100 h-75">
-        <img src="{{ blog.headerImage }}" alt="headerImage"> 
+    <section class="w-75 d-flex justify-content-center">
+        <img src="{{ blog.headerImage }}" alt="headerImage" class="img-fluid">
     </section>
-              
     
     {% endif %}
-    <div class="container">
+    <section class="w-75">
         <h2>{{ blog.body }}</h2>
+    </section>
+    <div class="d-flex justify-content-center">
+        <a href="/"><button type="submit" class="btn btn-explore btn-lg  my-5">See all Blogs</button></a>
+    </div>
     </div>
     <br><br>
 
