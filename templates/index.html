@@ -1,88 +1,86 @@
-{% extends 'base.html' %} {% block sub_content %}
-{% block styling %}
-    <style>
-        .container-latest{
-            padding: 50px 0;
+{% extends 'base.html' %} {% block sub_content %} {% block styling %}
+<style>
+    .container-latest {
+        padding: 50px 0;
+    }
+    
+    .icon-img img {
+        height: 60px;
+        border-radius: 50%;
+    }
+    
+    h2 {
+        color: black;
+    }
+    
+    @media (min-width:768px) {
+        .blogs-row {
+            max-width: 75%;
         }
-        .icon-img img{
-          height: 60px;
-          border-radius: 50%;
-        }
-        h2{
-            color: black;
-        }
-
-        @media (min-width:768px){
-            .blogs-row{
-                max-width: 75%;
-            }
-        }
-        @media (min-width:992px)
-        {
-
-        }
-    </style>
+    }
+    
+    @media (min-width:992px) {}
+</style>
 {% endblock %}
 <div class="container-latest">
     <div class="container pt-5 w-75">
 
         <div class="row align-items justify-content-around">
             <div class="col-md-6">
-                <h1 class="w-75 "><a href="/blog/{{ blogs[0].id }}" style="color: black;">{{ blogs[0].data.title }}</a></h1>
-                <p>Category : {{ blogs[0].data.category }}</p>
+                <h1 class="w-75 "><a href="/blog/{{ blogs[0].id }}" style="color: black;">{{ blogs[0].title }}</a></h1>
+                <p>Category : {{ blogs[0].category }}</p>
                 <div class="d-flex align-items-center">
                     <div class="icon-img">
                         <img alt="yuvi" src="{{url_for('static', filename='assets/yuvi-icon.jpeg')}}">
                     </div>
                     <div class="auth-name ms-2">
-                        <p class="m-0">{{ blogs[0].data.author }}</p>
-                        <p class="m-0">Date<span>{{ blogs[0].data.readTime }} mins</span></p>
+                        <p class="m-0">{{ blogs[0].author }}</p>
+                        <p class="m-0">Date<span>{{ blogs[0].readTime }} mins</span></p>
                     </div>
 
                 </div>
             </div>
             <div class="col-md-6">
-                {% if blogs[0].data.headerImage %}
-                <img src="{{ blogs[0].data.headerImage }}" alt="headerImage" style="float:right;" height="300px"> 
-                {% endif %}
+                {% if blogs[0].headerImage %}
+                <img src="{{ blogs[0].headerImage }}" alt="headerImage" style="float:right;" height="300px"> {% endif %}
             </div>
         </div>
 
-</div>
+    </div>
 </div>
 
 <div class="blogs-row m-auto">
     <div class="row my-5  m-auto align-items-center justify-content-center" style="background-color: rgb(235, 236, 238);">
         {% for blog in blogs[1:] %}
         <div class="container col-md-6 py-3">
-            {% if blog.data.headerImage %}
+            {% if blog.headerImage %}
             <div class="row align-items-center justify-content-center my-4">
                 <div class="col-12">
-                    <img src="{{ blog.data.headerImage }}" alt="headerImage" class="img-fluid">            
+                    <img src="{{ blog.headerImage }}" alt="headerImage" class="img-fluid">
                 </div>
             </div>
-                
+
             {% endif %}
             <div class="row align-items-center justify-content-center">
                 <div class="col-12">
-                    <h2 class=" text-center"><a  href="/blog/{{ blog.id }}" style="color: black;">{{ blog.data.title }}</a></h2>
-                    <p>Category : {{ blog.data.category }}</p>
+                    <h2 class=" text-center"><a href="/blog/{{ blog.id }}" style="color: black;">{{ blog.title }}</a></h2>
+                    <p>Category : {{ blog.category }}</p>
                     <div class="d-flex align-items-center">
                         <div class="icon-img">
                             <img alt="yuvi" src="{{url_for('static', filename='assets/yuvi-icon.jpeg')}}">
                         </div>
                         <div class="auth-name ms-2">
-                            <p class="m-0">{{ blogs[0].data.author }}</p>
-                            <p class="m-0">Date<span>{{ blogs[0].data.readTime }} mins</span></p>
+                            <p class="m-0">{{ blogs[0].author }}</p>
+                            <p class="m-0">Date<span>{{ blogs[0].readTime }} mins</span></p>
                         </div>
-    
+
                     </div>
                 </div>
             </div>
-    
+
         </div>
-    
-    
+
+
         <br> {% endfor %}
     </div>
 </div>

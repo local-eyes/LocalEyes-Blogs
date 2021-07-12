@@ -24,10 +24,7 @@ def index():
 	blogs_stream = query.stream()
 	blogs = []
 	for blog in blogs_stream:
-		blogs.append({
-			"data": blog.to_dict(),
-			"id": blog.id
-		})
+		blogs.append(blog.to_dict())
 	return render_template("index.html", blogs=blogs)
 
 @app.route('/admin/register/', methods=['GET', 'POST'])
@@ -89,8 +86,17 @@ def author(identifier):
 @app.route('/blog/<id>/')
 def blogs(id):
 	blog = blogsRef.document(id).get()
+	nextBlogsQuery = blogsRef.order_by(u'postedOn', direction=firestore.Query.DESCENDING).get()
+	# nextBlogsQuery.where(u'id', u'!=', u'{}'.format(id)).limit_to_last(2).get()
+	nextBlogs = []
+	for nxtBlg in nextBlogsQuery:
+		_blog = nxtBlg.to_dict()
+		if _blog['id'] == id:
+			pass
+		else:
+			nextBlogs.append(_blog)
 	if blog.exists:
-		return render_template('blogs.html', blog=blog.to_dict())
+		return render_template('blogs.html', blog=blog.to_dict(), nextBlogs=nextBlogs)
 	return "Blog Not Found"
 
 @app.route('/write-blog/', methods=['GET', 'POST'])
@@ -98,14 +104,15 @@ def write_blog():
 	if request.method == 'POST':
 		if session['isVerified']:
 			blogpost = request.form
-			blogData = {
-			u'title' : blogpost['title'],
-			u'body' : blogpost['body'],
-			u'category' : blogpost['category'],
-			u'author' : session['author'],
-			u'postedOn': datetime.now()
-			}
 			tagline = blogpost['title'].replace(" ", "-").replace(",", "").replace("!", "").replace(".", "").lower()
+			blogData = {
+				u'id' : tagline,
+				u'title' : blogpost['title'],
+				u'body' : blogpost['body'],
+				u'category' : blogpost['category'],
+				u'author' : session['author'],
+				u'postedOn': datetime.now()
+			}
 			blogsRef.document(tagline).set(blogData)
 			flash('Blog Posted Successfully', 'success')
 			return redirect('/')
