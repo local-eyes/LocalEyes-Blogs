@@ -24,10 +24,35 @@
 .blog-container{
     max-height: 500px;
 }
+.title-tag{
+        text-decoration:none;
+        font-family:'Poppins';
+        font-weight: bold;
+        font-size: 34px;
+    }
+    .category{
+        font-size: 17px;
+        font-weight: 600;
+        font-family: 'Poppins';
+        color: grey;
+    }
+    .auth-name{
+        font-family: 'Poppins';
+        font-weight: normal;
+        font-size: 21px;
+    }
+    .TOR{
+        font-size: 18px;
+        color: #979797;
+        font-family: 'Poppins';
+    }
 @media (min-width:768px){
     .blogs-row {
             max-width: 75%;
         }
+    .blog-container{
+        height: 331px;
+    }
 }
 @media (min-width:992px)
 {
@@ -38,9 +63,9 @@
 <div class="container" style="margin-top: 65px;">
     <section class=" mx-auto ">
         <div class="d-flex flex-column justify-content-start w-50 pt-5">
-            <h1 class="fw-bold"> {{ blog.title }}</h1>
-            <div class="category pt-3">
-                <p class="text-left fw-bold fs-5">Category : {{ blog.category }}</p>
+            <h1 class="title-tag"> {{ blog.title }}</h1>
+            <div class=" pt-3">
+                <p class="text-left  category">Category : {{ blog.category }}</p>
             </div>
             
         </div>
@@ -50,9 +75,9 @@
                         <div class="icon-img">
                             <img alt="yuvi" src="{{url_for('static', filename='assets/yuvi-icon.jpeg')}}">
                         </div>
-                        <div class="auth-name ms-2">
-                            <p class="m-0">{{ blog.author }}</p>
-                            <p class="m-0">Date<span>.time of read</span></p>
+                        <div class=" ms-2">
+                            <p class="m-0 auth-name">{{ blog.author }}</p>
+                            <p class="m-0 TOR">Date<span>.time of read</span></p>
                         </div>
  
                     </div>
@@ -78,8 +103,7 @@
     <div class="blogs-row  m-auto">
         <div class="row my-5  m-auto align-items-center justify-content-center" style="background-color: rgb(235, 236, 238);">
             {% for blog in nextBlogs[0:2] %}
-            <div class="blog-container">
-                <div class="container col-md-6 py-3 ">
+                <div class="container col-md-6 py-3 blog-container">
                     {% if blog.headerImage %}
                     <div class="row align-items-center justify-content-center my-4">
                         <div class="col-12">
@@ -90,22 +114,21 @@
                     {% endif %}
                     <div class="row align-items-center justify-content-center">
                         <div class="col-12">
-                            <h2 class=" text-center"><a href="/blog/{{ blog.id }}" style="color: black;">{{ blog.title }}</a></h2>
-                            <p>Category : {{ blog.category }}</p>
+                            <h2 class=""><a class="title-tag" href="/blog/{{ blog.id }}" style="color: black;">{{ blog.title }}</a></h2>
+                            <p class="category">Category : {{ blog.category }}</p>
                             <div class="d-flex align-items-center">
                                 <div class="icon-img">
                                     <img alt="yuvi" src="{{url_for('static', filename='assets/yuvi-icon.jpeg')}}">
                                 </div>
-                                <div class="auth-name ms-2">
-                                    <p class="m-0">{{ blog.author }}</p>
-                                    <p class="m-0">Date<span>{{ blog.readTime }} mins</span></p>
+                                <div class=" ms-2">
+                                    <p class="m-0 auth-name">{{ blog.author }}</p>
+                                    <p class="m-0 TOR">Date<span>{{ blog.readTime }} mins</span></p>
                                 </div>
         
                             </div>
                         </div>
                     </div>
         
-                </div>
             </div>
     
     
